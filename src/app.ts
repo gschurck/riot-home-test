@@ -1,6 +1,11 @@
 import 'reflect-metadata';
+import compression from 'compression';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import express from 'express';
-import {NODE_ENV, PORT} from '@config';
+import helmet from 'helmet';
+import hpp from 'hpp';
+import {CREDENTIALS, NODE_ENV, ORIGIN, PORT} from '@config';
 import {Routes} from '@interfaces/routes.interface';
 
 export class App {
@@ -13,6 +18,7 @@ export class App {
     this.env = NODE_ENV || 'development';
     this.port = PORT || 3000;
 
+    this.initializeMiddlewares();
     this.initializeRoutes(routes);
   }
 
@@ -24,6 +30,15 @@ export class App {
     return this.app;
   }
 
+  private initializeMiddlewares() {
+    this.app.use(cors({origin: ORIGIN, credentials: CREDENTIALS}));
+    this.app.use(hpp());
+    this.app.use(helmet());
+    this.app.use(compression());
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({extended: true}));
+    this.app.use(cookieParser());
+  }
 
   private initializeRoutes(routes: Routes[]) {
     routes.forEach(route => {
