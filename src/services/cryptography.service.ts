@@ -16,7 +16,7 @@ export class CryptographyService {
   ) {
   }
 
-  public async encryptObjectValues(object: stringsAndObjectsPayload): Promise<stringsPayload> {
+  public async encryptObjectValues(object: StringsAndObjectsPayload): Promise<StringsPayload> {
     const encryptedObject = {};
     for (const key in object) {
       let value = object[key];
@@ -29,7 +29,7 @@ export class CryptographyService {
     return encryptedObject;
   }
 
-  public async decryptObjectValues(object: stringsPayload): Promise<stringsAndObjectsPayload> {
+  public async decryptObjectValues(object: StringsPayload): Promise<StringsAndObjectsPayload> {
     const decryptedObject = {};
     for (const key in object) {
       let decryptedValue = this.encryptor.decrypt(object[key]);
