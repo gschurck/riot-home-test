@@ -24,4 +24,31 @@ export class CryptographyController {
       next(error);
     }
   }
+
+  public sign = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const signature = await this.cryptography.sign(req.body);
+      const responseObject = {
+        signature: signature,
+        data: req.body
+      }
+      res.status(200).json(responseObject);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public verify = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const signature = req.body.signature;
+      const data = req.body.data;
+      const isVerified = await this.cryptography.verifySignature(signature, data);
+      if (!isVerified) {
+        res.status(400).json({error: "Invalid signature"});
+      }
+      res.status(204).send();
+    } catch (error) {
+      next(error);
+    }
+  }
 }
