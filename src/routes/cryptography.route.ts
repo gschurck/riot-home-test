@@ -13,5 +13,7 @@ export class CryptographyRoute implements Routes {
   private initializeRoutes() {
     this.router.post('/encrypt', this.cryptography.encrypt);
     this.router.post('/decrypt', this.cryptography.decrypt);
+    this.router.post('/sign', this.cryptography.sign);
+    this.router.post('/verify', this.cryptography.verify);
   }
 }
