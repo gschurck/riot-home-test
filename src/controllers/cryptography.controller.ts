@@ -29,8 +29,7 @@ export class CryptographyController {
     try {
       const signature = await this.cryptography.sign(req.body);
       const responseObject = {
-        signature: signature,
-        data: req.body
+        signature: signature
       }
       res.status(200).json(responseObject);
     } catch (error) {
