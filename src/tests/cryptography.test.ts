@@ -2,6 +2,7 @@ import request from 'supertest';
 import {App} from '@/app';
 import {CryptographyRoute} from "@routes/cryptography.route";
 
+// Tests made with SECRET_KEY = secretKey
 
 afterAll(async () => {
   await new Promise<void>(resolve => setTimeout(() => resolve(), 500));

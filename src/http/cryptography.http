@@ -1,6 +1,8 @@
 # baseURL
 @baseURL = http://localhost:3000
 
+# Tests made with SECRET_KEY = secretKey
+
 ###
 # Data Encryption
 POST {{ baseURL }}/encrypt
