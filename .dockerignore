@@ -6,7 +6,6 @@
 .eslintrc
 .eslintignore
 .editorconfig
-.lintstagedrc.json
 .prettierrc
 
 # test
