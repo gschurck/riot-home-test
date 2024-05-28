@@ -9,6 +9,7 @@ import morgan from 'morgan';
 import {CREDENTIALS, LOG_FORMAT, NODE_ENV, ORIGIN, PORT} from '@config';
 import {Routes} from '@interfaces/routes.interface';
 import {logger, stream} from '@utils/logger';
+import {ErrorMiddleware} from "@middlewares/error.middleware";
 
 export class App {
   public app: express.Application;
@@ -22,6 +23,7 @@ export class App {
 
     this.initializeMiddlewares();
     this.initializeRoutes(routes);
+    this.initializeErrorHandling();
   }
 
   public listen() {
@@ -53,5 +55,9 @@ export class App {
     routes.forEach(route => {
       this.app.use('/', route.router);
     });
+  }
+
+  private initializeErrorHandling() {
+    this.app.use(ErrorMiddleware);
   }
 }
