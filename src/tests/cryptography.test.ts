@@ -96,6 +96,26 @@ describe('TEST Cryptography API', () => {
 
       return request(app.getServer()).post('/verify').send(data).expect(204);
     });
+
+    it('response code should be 400 when signature provided is wrong', () => {
+      const data = {
+        "signature": "wrong_signature",
+        "data": {
+          "key1": "value1",
+          "object1": {
+            "key2": "value2"
+          },
+          "object2": {
+            "key3": {
+              "key4": "value4"
+            }
+          }
+        }
+      }
+
+      return request(app.getServer()).post('/verify').send(data).expect(400);
+    });
+
     it('response code should be 400 when the field signature is not provided', () => {
       const data = {
         "data": {
