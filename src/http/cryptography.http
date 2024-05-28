@@ -28,3 +28,40 @@ Content-Type: application/json
   "object1": "eyJrZXkyIjoidmFsdWUyIn0=",
   "object2": "eyJrZXkzIjp7ImtleTQiOiJ2YWx1ZTQifX0="
 }
+
+###
+# Sign Data
+POST {{ baseURL }}/sign
+Content-Type: application/json
+
+{
+  "key1": "value1",
+  "object1": {
+    "key2": "value2"
+  },
+  "object2": {
+    "key3": {
+      "key4": "value4"
+    }
+  }
+}
+
+###
+# Sign Data
+POST {{ baseURL }}/verify
+Content-Type: application/json
+
+{
+  "signature": "056345fb6f819d5739872ff4206254607252da61cebcda2a4947d12231d391c8",
+  "data": {
+    "key1": "value1",
+    "object1": {
+      "key2": "value2"
+    },
+    "object2": {
+      "key3": {
+        "key4": "value4"
+      }
+    }
+  }
+}
