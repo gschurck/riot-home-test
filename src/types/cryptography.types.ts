@@ -1,7 +1,7 @@
-type stringsAndObjectsPayload = {
+type StringsAndObjectsPayload = {
   [key: string]: string | object;
 };
 
-type stringsPayload = {
+type StringsPayload = {
   [key: string]: string;
 };
