@@ -10,6 +10,8 @@ import {CREDENTIALS, LOG_FORMAT, NODE_ENV, ORIGIN, PORT} from '@config';
 import {Routes} from '@interfaces/routes.interface';
 import {logger, stream} from '@utils/logger';
 import {ErrorMiddleware} from "@middlewares/error.middleware";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUi from 'swagger-ui-express';
 
 export class App {
   public app: express.Application;
@@ -24,6 +26,7 @@ export class App {
     this.initializeMiddlewares();
     this.initializeRoutes(routes);
     this.initializeErrorHandling();
+    this.initializeSwagger();
   }
 
   public listen() {
@@ -55,6 +58,23 @@ export class App {
     routes.forEach(route => {
       this.app.use('/', route.router);
     });
+  }
+
+  private initializeSwagger() {
+    const options = {
+      swaggerDefinition: {
+        openapi: '3.0.0',
+        info: {
+          title: 'Cryptography REST API',
+          version: '1.0.0',
+          description: 'API documentation',
+        },
+      },
+      apis: ['swagger.yaml'],
+    };
+
+    const specs = swaggerJSDoc(options);
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
   }
 
   private initializeErrorHandling() {
