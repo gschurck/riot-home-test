@@ -1,12 +1,11 @@
 import 'reflect-metadata';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
-import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
-import {CREDENTIALS, LOG_FORMAT, NODE_ENV, ORIGIN, PORT} from '@config';
+import {LOG_FORMAT, NODE_ENV, PORT} from '@config';
 import {Routes} from '@interfaces/routes.interface';
 import {logger, stream} from '@utils/logger';
 import {ErrorMiddleware} from "@middlewares/error.middleware";
@@ -45,7 +44,6 @@ export class App {
 
   private initializeMiddlewares() {
     this.app.use(morgan(LOG_FORMAT, {stream}));
-    this.app.use(cors({origin: ORIGIN, credentials: CREDENTIALS}));
     this.app.use(hpp());
     this.app.use(helmet());
     this.app.use(compression());
